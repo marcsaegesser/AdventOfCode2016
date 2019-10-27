@@ -5,16 +5,17 @@ import collection.immutable._
 object Day19 {
 
   def day19(): Unit = {
-    println(s"Day19.part1 = ${part1(puzzleInput)}")
-    println(s"Day19.part2 = ${part2(puzzleInput)}")
+    val start = SortedSet((1 to puzzleInput):_*)
+    println(s"Day19.part1 = ${part1(start)}")
+    println(s"Day19.part2 = ${part2(start)}")
   }
 
   def part1(elves: SortedSet[Int]): Int = {
     if(elves.size == 1) elves.head
     else {
       val next = elves.sliding(2, 2).map(_.take(1)).reduce(_++_)
-      if(elves.size % 2 == 0) play1(next)
-      else                   play1(next.drop(1))
+      if(elves.size % 2 == 0) part1(next)
+      else                   part1(next.drop(1))
     }
   }
 
